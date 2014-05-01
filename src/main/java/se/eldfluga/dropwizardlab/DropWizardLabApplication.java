@@ -54,6 +54,7 @@ public class DropWizardLabApplication extends Application<DropWizardLabConfigura
     public void run(DropWizardLabConfiguration configuration,
                     Environment environment) {
         final UserViewerResource viewerResource = new UserViewerResource(dbi);
+        environment.healthChecks().register("roundtrip", new DropWizardLabHealthCheck(viewerResource));
         environment.jersey().register(viewerResource);
     }
 
